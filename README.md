@@ -14,16 +14,16 @@ Sliders
 =======
 - V-band flux [mag]: V-band magnitude of your target
 - Sky flux [mag]: V-band magnitude of the sky
-- Dark current [units]: Units?
+- Dark current [magnitude]: dark current as a magnitude
 - Read noise [e/s]: read noise per pixel
-- Cosmics [units]: units? density of cosmic rays?
+- Cosmics [10^[x] N/cm^2]: density of cosmic ray flux
 - Aperture diameter [m]: mirror size
 - Bandwidth [um]: effective filter width
-- CCD dimension [pixels]: 
-- Quantum efficiency [0-1]
-- Pixel size
-- Pixels under PSF [# pixels]
-- Target size [# PSFs]
+- CCD dimension [pixels]: assumes square CCD
+- Quantum efficiency [0-1]: pixel quantum efficiency
+- Pixel size [um]: size of square pixels
+- Pixels under PSF [# pixels]: the number of pixels contained inside the PSF
+- Target size [# PSFs]: the number of PSFs needed to cover a target (1 for point sources, more for extended objects)
 
 Plots
 =====
