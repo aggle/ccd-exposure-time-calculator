@@ -284,10 +284,10 @@ def calcCosmicHits(time=1):
 
 ### Signals bar chart
 signalsvals = np.array([
-        ((10**starget.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get(),"Target"),
-        ((10**ssky.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get(),"Sky"),
-        ((10**scosmics.get()) * (spixelsize.get())**2 * (1e-4)**2 * spsfsontarget.get()*spixelsperpsf.get() * 4.66e6*1/1.12, "Cosmics"),
-        ((10**sdarkcurrent.get())*spsfsontarget.get()*spixelsperpsf.get(),"DC"),
+        (mag2flux(starget.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get(),"Target"),
+        (mag2flux(ssky.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get(),"Sky"),
+        (mag2flux(scosmics.get()) * (spixelsize.get())**2 * (1e-4)**2 * spsfsontarget.get()*spixelsperpsf.get() * 4.66e6*1/1.12, "Cosmics"),
+        (mag2flux(sdarkcurrent.get())*spsfsontarget.get()*spixelsperpsf.get(),"DC"),
         (sreadnoise.get()*spsfsontarget.get()*spixelsperpsf.get(),"RN")
         ],dt)
 signalsax = f_signals.add_subplot(111)
@@ -334,10 +334,10 @@ for t in legend.get_texts():
     t.set_color("black")
 
 def update_signals_bar():
-    signalsdict["Target"].set_height((10**starget.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get())
-    signalsdict["Sky"].set_height((10**ssky.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get())
-    signalsdict["Cosmics"].set_height((10**scosmics.get()) * (spixelsize.get())**2 * (1e-4)**2 * spsfsontarget.get()*spixelsperpsf.get() * 4.66e6*1/1.12),
-    signalsdict["DC"].set_height((10**sdarkcurrent.get())*spsfsontarget.get()*spixelsperpsf.get())
+    signalsdict["Target"].set_height(mag2flux(starget.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get())
+    signalsdict["Sky"].set_height(mag2flux(ssky.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get())
+    signalsdict["Cosmics"].set_height(mag2flux(scosmics.get()) * (spixelsize.get())**2 * (1e-4)**2 * spsfsontarget.get()*spixelsperpsf.get() * 4.66e6*1/1.12),
+    signalsdict["DC"].set_height(mag2flux(sdarkcurrent.get())*spsfsontarget.get()*spixelsperpsf.get())
     signalsdict["RN"].set_height(sreadnoise.get()*spsfsontarget.get()*spixelsperpsf.get())
     # get maximum
     maxsig = max([rect.get_height() for rect in signalsdict.values()])
