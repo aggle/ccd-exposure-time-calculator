@@ -203,7 +203,7 @@ scosmics = Tk.Scale(root, from_=-5, to=1,
                          troughcolor=bgndcolor,
                          length=sliderlength,
                          resolution=sliderres)
-scosmics.set(cosmics['flux'][0])
+scosmics.set(10**cosmics['flux'][0])
 ### Telescope parameters
 saperture=Tk.Scale(root, from_=0,to=10,
                         label= "Aperture diameter [m]",
@@ -276,7 +276,7 @@ def calcCosmicHits(time=1):
     The probability of losing a pixel to cosmics
     """
     time = np.asarray(time)
-    ccdflux = (spixelsize.get()*sccdsize.get()*1e-4)**2 * scosmics.get() # flux through ccd
+    ccdflux = (spixelsize.get()*sccdsize.get()*1e-4)**2 * 10**(scosmics.get()) # flux through ccd
     npix = spsfsontarget.get()*spixelsperpsf.get()
     probPerPix = (1-1./(sccdsize.get()**2))**(ccdflux*time)
     probPerTargetPix = probPerPix**npix
@@ -286,7 +286,7 @@ def calcCosmicHits(time=1):
 signalsvals = np.array([
         (mag2flux(starget.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get(),"Target"),
         (mag2flux(ssky.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get(),"Sky"),
-        (scosmics.get() * (spixelsize.get())**2 * (1e-4)**2 * spsfsontarget.get()*spixelsperpsf.get() * 4.66e6*1/1.12, "Cosmics"),
+        (10**(scosmics.get()) * (spixelsize.get())**2 * (1e-4)**2 * spsfsontarget.get()*spixelsperpsf.get() * 4.66e6*1/1.12, "Cosmics"),
         (mag2flux(sdarkcurrent.get())*spsfsontarget.get()*spixelsperpsf.get(),"DC"),
         (sreadnoise.get()*spsfsontarget.get()*spixelsperpsf.get(),"RN")
         ],dt)
@@ -336,7 +336,7 @@ for t in legend.get_texts():
 def update_signals_bar():
     signalsdict["Target"].set_height(mag2flux(starget.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get())
     signalsdict["Sky"].set_height(mag2flux(ssky.get())*(np.pi*saperture.get()**2)*sbandwidth.get()*sqe.get())
-    signalsdict["Cosmics"].set_height(scosmics.get() * (spixelsize.get())**2 * (1e-4)**2 * spsfsontarget.get()*spixelsperpsf.get() * 4.66e6*1/1.12),
+    signalsdict["Cosmics"].set_height(10**(scosmics.get()) * (spixelsize.get())**2 * (1e-4)**2 * spsfsontarget.get()*spixelsperpsf.get() * 4.66e6*1/1.12),
     signalsdict["DC"].set_height(mag2flux(sdarkcurrent.get())*spsfsontarget.get()*spixelsperpsf.get())
     signalsdict["RN"].set_height(sreadnoise.get()*spsfsontarget.get()*spixelsperpsf.get())
     # get maximum
